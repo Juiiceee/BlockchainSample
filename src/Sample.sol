@@ -58,6 +58,8 @@ contract Sample {
 		uint256 totalSold;
 	}
 
+	mapping(address => Artist) public addressToArtist;
+
 	function registerArtists(
 		bool _isArtist,
 		string memory _mainName,
