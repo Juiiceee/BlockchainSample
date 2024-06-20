@@ -3,62 +3,22 @@
 pragma solidity ^0.8.20;
 
 import "./MSample.sol";
+import "./LSample.sol";
 
 contract Sample is MSample {
 	event ArtistRegistered(address indexed artist, string mainName, uint32 registeredAt);
+	using LSample for LSample.Artist;
+	using LSample for LSample.ArtistType;
+	using LSample for LSample.ArtistData;
+	//using LSample for LSample.SampleMusic;
 
-	struct SampleDetails {
-		address owner;
-		string uriVideo;
-	}
-
-	struct SampleMusic {
-		uint256 idSample;
-		Artist artist;
-		string uri;
-		// SampleDetails[] sampleDetails;
-		Totalsupplies totalSupplies;
-		uint256 price;
-	}
-
-	struct DescriptionPreimage {
-		bool has_preimage;
-		bytes32 preimage;
-	}
-
-	enum ArtistType {
-		Singer,
-		Instrumentalist,
-		Composer,
-		Lyricist,
-		Producer,
-		DiscJokey,
-		Conductor,
-		Arranger,
-		Engineer,
-		Director
-	}
-
-	struct ArtistData {
-		address owner;
-		uint32 registered_at;
-		string main_name;
-		ArtistType main_type;
-		ArtistType[] extra_types;
-		bytes[] genres;
-		bytes32[] assets;
-		address NFTFactory;
-	}
-
-	struct Artist {
-		bool is_artist;
-		ArtistData data;
-	}
-
-	struct Totalsupplies {
-		uint256 totalSupply;
-		uint256 totalSold;
-	}
+	LSample.Artist public Artist;
+	// LSample.SampleDetails public SampleDetails;
+	// LSample.SampleMusic public SampleMusic;
+	// LSample.DescriptionPreimage public DescriptionPreimage;
+	LSample.ArtistType public ArtistType;
+	LSample.ArtistData public ArtistData;
+	// LSample.Totalsupplies public Totalsupplies;
 
 	mapping(address => Artist) public addressToArtist;
 
