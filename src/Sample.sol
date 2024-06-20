@@ -2,7 +2,9 @@
 
 pragma solidity ^0.8.20;
 
-contract Sample {
+import "./MSample.sol";
+
+contract Sample is MSample {
 	event ArtistRegistered(address indexed artist, string mainName, uint32 registeredAt);
 
 	struct SampleDetails {
@@ -44,8 +46,8 @@ contract Sample {
 		ArtistType main_type;
 		ArtistType[] extra_types;
 		bytes[] genres;
-		//DescriptionPreimage description;
 		bytes32[] assets;
+		address NFTFactory;
 	}
 
 	struct Artist {
@@ -66,9 +68,9 @@ contract Sample {
 		ArtistType _mainType,
 		ArtistType[] memory _extraTypes,
 		bytes[] memory _genres,
-		//DescriptionPreimage memory _description,
-		bytes32[] memory _assets
-	) external onlyNotRegister onlyNotEmptyName(_mainName) {
+		bytes32[] memory _assets,
+		address _NFTFactory
+	) external {
 		setAddressToArtist(
 			Artist({
 				is_artist: _isArtist,
@@ -79,11 +81,15 @@ contract Sample {
 					main_type: _mainType,
 					extra_types: _extraTypes,
 					genres: _genres,
-					//description: _description,
-					assets: _assets
+					assets: _assets,
+					NFTFactory: _NFTFactory
 				})
 			})
 		);
 		emit ArtistRegistered(msg.sender, _mainName, addressToArtist[msg.sender].data.registered_at);
+	}
+
+	function setAddressToArtist(Artist memory _artist) private {
+		addressToArtist[msg.sender] = _artist;
 	}
 }

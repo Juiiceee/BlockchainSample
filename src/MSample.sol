@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./Sample.sol";
-
-contract MSample is Sample {
+contract MSample {
 	error SampleAlreadyRegister(string);
 	error SampleNoEmptyField(string);
 	error SampleInvalidIndex(uint256);
@@ -17,9 +15,7 @@ contract MSample is Sample {
 		_;
 	}
 
-	function _requireAlreadyRegister() internal view {
-		
-	}
+	function _requireAlreadyRegister() internal view {}
 
 	modifier onlyAuthorized(
 		address _address,
