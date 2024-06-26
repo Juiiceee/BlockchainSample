@@ -28,6 +28,10 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 		_setTokenURI();
 	}
 
+	function withdraw() external onlyOwner() {
+		payable(msg.sender).transfer(address(this).balance);
+	}
+
 	function supportsInterface(
 		bytes4 interfaceId
 	) public view virtual override(ERC721, ERC721URIStorage) returns (bool) {
