@@ -11,6 +11,7 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 	uint idNFTSample;
 	address owner;
 	uint public price;
+	string URIToken;
 	constructor(
 		string memory _name,
 		string memory _symbol,
@@ -19,6 +20,7 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 	) ERC721(_name, _symbol) Ownable(msg.sender) {
 		owner = msg.sender;
 		price = _price;
+		URIToken = _URIToken;
 	}
 
 	function mintPayable() external payable onlySameAmount(price) {
