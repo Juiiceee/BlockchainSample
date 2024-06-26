@@ -70,6 +70,6 @@ contract MSample {
 	}
 
 	function _requireSameAmount(uint _price) internal view {
-		if (msg.value != _price) revert onlySameAmount(_price);
+		if (msg.value != _price) revert SampleSameAmount(_price);
 	}
 }
