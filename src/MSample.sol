@@ -64,10 +64,12 @@ contract MSample {
 
 	function _requireValidIndex(uint256 _index) internal view {}
 
-	modifier onlySameAmount(uint256 _index) {
-		_requireSameAmount(_index);
+	modifier onlySameAmount(uint _price) {
+		_requireSameAmount(_price);
 		_;
 	}
 
-	function _requireSameAmount(uint256 _index) internal view onlyValidIndex(_index) {}
+	function _requireSameAmount(uint _price) internal view {
+		if (msg.value != _price) revert onlySameAmount(_price);
+	}
 }
