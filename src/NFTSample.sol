@@ -28,7 +28,7 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 		_setTokenURI();
 	}
 
-	function withdraw() external onlyOwner() {
+	function withdraw() external onlyOwner {
 		payable(msg.sender).transfer(address(this).balance);
 	}
 
