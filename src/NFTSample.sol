@@ -9,16 +9,29 @@ import "./MSample.sol";
 
 contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 	uint idNFTSample;
-	address owner;
 	uint public price;
 	string URIToken;
+	mapping(uint => string) idToURL;
+
+	modifier onlyOwnerNFT(uint _idNFT) {
+		require(msg.sender == ownerOf(_idNFT), "You aren't the owner of this NFT");
+		_;
+	}
+
+	modifier onlyNotAlreadyLink(uint _idNFT) {
+		require(
+			keccak256(abi.encodePacked(idToURL[_idNFT])) == keccak256(abi.encodePacked("")),
+			"This NFT is already link"
+		);
+		_;
+	}
+
 	constructor(
 		string memory _name,
 		string memory _symbol,
 		uint _price,
 		string memory _URIToken
 	) ERC721(_name, _symbol) Ownable(msg.sender) {
-		owner = msg.sender;
 		price = _price;
 		URIToken = _URIToken;
 	}
@@ -26,6 +39,10 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 	function mintPayable() external payable onlySameAmount(price) {
 		_safeMint(msg.sender, idNFTSample++);
 		_setTokenURI(idNFTSample, URIToken);
+	}
+
+	function linkVideo(uint _idNFT, string memory _url) external onlyOwnerNFT(_idNFT) {
+		idToURL[_idNFT] = _url;
 	}
 
 	function withdraw() external onlyOwner {
@@ -38,7 +55,5 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 		return super.supportsInterface(interfaceId);
 	}
 
-	function tokenURI(uint256 tokenId) public view virtual override(ERC721, ERC721URIStorage) returns (string memory) {
-		return (URIToken);
-	}
+	function tokenURI(uint256 tokenId) public view virtual override(ERC721, ERC721URIStorage) returns (string memory) {}
 }
