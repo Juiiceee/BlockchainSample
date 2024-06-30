@@ -25,7 +25,7 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 
 	function mintPayable() external payable onlySameAmount(price) {
 		_safeMint(msg.sender, idNFTSample++);
-		_setTokenURI();
+		_setTokenURI(idNFTSample, URIToken);
 	}
 
 	function withdraw() external onlyOwner {
@@ -38,5 +38,7 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 		return super.supportsInterface(interfaceId);
 	}
 
-	function tokenURI(uint256 tokenId) public view virtual override(ERC721, ERC721URIStorage) returns (string memory) {}
+	function tokenURI(uint256 tokenId) public view virtual override(ERC721, ERC721URIStorage) returns (string memory) {
+		return (URIToken);
+	}
 }
