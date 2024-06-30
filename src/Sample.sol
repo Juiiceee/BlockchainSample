@@ -7,6 +7,13 @@ import "./MSample.sol";
 contract Sample is MSample {
 	event ArtistRegistered(address indexed artist, string mainName, uint32 registeredAt);
 
+	address public constant ADD_0 = 0x0000000000000000000000000000000000000000;
+
+	modifier onlyNot0address(address _add) {
+		require(_add != ADD_0, "The address must not be 0");
+		_;
+	}
+
 	struct SampleDetails {
 		address owner;
 		string uriVideo;
@@ -68,8 +75,7 @@ contract Sample is MSample {
 		ArtistType _mainType,
 		ArtistType[] memory _extraTypes,
 		bytes[] memory _genres,
-		bytes32[] memory _assets,
-		address _NFTFactory
+		bytes32[] memory _assets
 	) external {
 		setAddressToArtist(
 			Artist({
@@ -82,7 +88,7 @@ contract Sample is MSample {
 					extra_types: _extraTypes,
 					genres: _genres,
 					assets: _assets,
-					NFTFactory: _NFTFactory
+					NFTFactory: ADD_0
 				})
 			})
 		);
@@ -91,5 +97,9 @@ contract Sample is MSample {
 
 	function setAddressToArtist(Artist memory _artist) private {
 		addressToArtist[msg.sender] = _artist;
+	}
+
+	function setFactoryAddress(address _factoryAddress) external onlyNot0address(_factoryAddress) {
+		addressToArtist[msg.sender].data.NFTFactory = _factoryAddress;
 	}
 }
