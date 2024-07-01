@@ -4,6 +4,10 @@ pragma solidity ^0.8.20;
 
 import "./NFTSample.sol";
 
+/*interface INFTFactorySample {
+		function mintPayable() external payable onlySameAmount(price);
+}*/
+
 contract NFTFactorySample {
 	NFTSample[] public NFTContract;
 
@@ -18,8 +22,8 @@ contract NFTFactorySample {
 		return address(nftSample);
 	}
 
-	function mintPayable(NFTSample _NFTSample) external {
-		_NFTSample.mintPayable();
+	function mintPayable(NFTSample _NFTSample) external payable {
+		_NFTSample.mintPayable{value: msg.value}(msg.sender);
 	}
 
 	function linkVideo(NFTSample _NFTSample, uint _idNFT, string memory _url) external {

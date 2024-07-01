@@ -7,13 +7,6 @@ import "./MSample.sol";
 contract Sample is MSample {
 	event ArtistRegistered(address indexed artist, string mainName, uint32 registeredAt);
 
-	address public constant ADD_0 = 0x0000000000000000000000000000000000000000;
-
-	modifier onlyNot0address(address _add) {
-		require(_add != ADD_0, "The address must not be 0");
-		_;
-	}
-
 	struct SampleDetails {
 		address owner;
 		string uriVideo;

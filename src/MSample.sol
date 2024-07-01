@@ -9,6 +9,19 @@ contract MSample {
 	error SampleNoAuthorized(address);
 	error SampleLinkVideoalreadyExist(string);
 	error SampleNoRegister(string);
+	error SampleNo0Address(address);
+
+	address public constant ADD_0 = 0x0000000000000000000000000000000000000000;
+
+	modifier onlyNot0address(address _add) {
+		_requireNot0Address(_add);
+		_;
+	}
+
+	function _requireNot0Address(address _add) internal pure {
+		if (_add == ADD_0)
+			revert SampleNo0Address(_add);
+	}
 
 	modifier onlyAlreadyRegister() {
 		_requireNotRegister();

@@ -36,8 +36,8 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 		URIToken = _URIToken;
 	}
 
-	function mintPayable() external payable onlySameAmount(price) {
-		_safeMint(msg.sender, idNFTSample++);
+	function mintPayable(address _add) external payable onlySameAmount(price) {
+		_safeMint(_add, idNFTSample++);
 		_setTokenURI(idNFTSample, URIToken);
 	}
 
