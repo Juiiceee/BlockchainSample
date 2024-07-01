@@ -19,8 +19,7 @@ contract MSample {
 	}
 
 	function _requireNot0Address(address _add) internal pure {
-		if (_add == ADD_0)
-			revert SampleNo0Address(_add);
+		if (_add == ADD_0) revert SampleNo0Address(_add);
 	}
 
 	modifier onlyAlreadyRegister() {
