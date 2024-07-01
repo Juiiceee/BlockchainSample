@@ -56,4 +56,16 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 	}
 
 	function tokenURI(uint256 tokenId) public view virtual override(ERC721, ERC721URIStorage) returns (string memory) {}
+
+	function getIdToURL(uint _idNFT) external view returns (string memory) {
+		return idToURL[_idNFT];
+	}
+
+	function getPrice() external view returns (uint) {
+		return price;
+	}
+
+	function getURIToken() external view returns (string memory) {
+		return URIToken;
+	}
 }

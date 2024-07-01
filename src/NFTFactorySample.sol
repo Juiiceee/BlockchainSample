@@ -17,4 +17,20 @@ contract NFTFactorySample {
 		NFTContract.push(nftSample);
 		return address(nftSample);
 	}
+
+	function mintPayable(NFTSample _NFTSample) external {
+		_NFTSample.mintPayable();
+	}
+
+	function linkVideo(NFTSample _NFTSample, uint _idNFT, string memory _url) external {
+		_NFTSample.linkVideo(_idNFT, _url);
+	}
+
+	function withdraw(NFTSample _NFTSample) external {
+		_NFTSample.withdraw();
+	}
+
+	function getAll(NFTSample _NFTSample, uint _idNFT) external view returns (uint, string memory, string memory) {
+		return (_NFTSample.getPrice(), _NFTSample.getURIToken(), _NFTSample.getIdToURL(_idNFT));
+	}
 }
