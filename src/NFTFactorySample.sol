@@ -37,4 +37,8 @@ contract NFTFactorySample {
 	function getAll(NFTSample _NFTSample, uint _idNFT) external view returns (uint, string memory, string memory) {
 		return (_NFTSample.getPrice(), _NFTSample.getURIToken(), _NFTSample.getIdToURL(_idNFT));
 	}
+
+	function getOwner(NFTSample _NFTSample, uint _idNFT) external view returns (address) {
+		return (_NFTSample.getOwner(_idNFT));
+	}
 }

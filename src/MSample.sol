@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 contract MSample {
 	error SampleAlreadyRegister(string);
-	error SampleNoEmptyField(string);
+	error SampleEmptyValue(string);
 	error SampleInvalidIndex(uint256);
 	error SampleSameAmount(uint256);
 	error SampleNoAuthorized(address);
@@ -58,14 +58,14 @@ contract MSample {
 
 	function _requireNotRegister() internal view {}
 
-	modifier onlyNotEmptyName(string memory _mainName) {
-		_requireNoEmptyName(_mainName);
+	modifier onlyEmptyValue(string memory _str) {
+		_requireEmptyValue(_str);
 		_;
 	}
 
-	function _requireNoEmptyName(string memory _mainName) internal pure {
-		if (bytes(_mainName).length == 0) {
-			revert SampleNoEmptyField("main_name");
+	function _requireEmptyValue(string memory _str) internal pure {
+		if (keccak256(abi.encodePacked(_str)) != keccak256(abi.encodePacked(""))) {
+			revert SampleEmptyValue(_str);
 		}
 	}
 

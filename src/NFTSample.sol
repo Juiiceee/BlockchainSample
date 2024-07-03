@@ -41,7 +41,7 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 		_setTokenURI(idNFTSample, URIToken);
 	}
 
-	function linkVideo(uint _idNFT, string memory _url) external onlyOwnerNFT(_idNFT) {
+	function linkVideo(uint _idNFT, string memory _url) external onlyEmptyValue(idToURL[_idNFT]) /*onlyOwnerNFT(_idNFT)*/ {
 		idToURL[_idNFT] = _url;
 	}
 
@@ -63,6 +63,10 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 
 	function getPrice() external view returns (uint) {
 		return price;
+	}
+
+	function getOwner(uint _idNFT) external view returns (address) {
+		return (_ownerOf(_idNFT));
 	}
 
 	function getURIToken() external view returns (string memory) {
