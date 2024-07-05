@@ -27,7 +27,7 @@ contract NFTFactorySample {
 	}
 
 	function linkVideo(NFTSample _NFTSample, uint _idNFT, string memory _url) external {
-		_NFTSample.linkVideo(_idNFT, _url);
+		_NFTSample.linkVideo(_idNFT, _url, msg.sender);
 	}
 
 	function withdraw(NFTSample _NFTSample) external {

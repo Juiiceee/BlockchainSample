@@ -13,8 +13,8 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 	string URIToken;
 	mapping(uint => string) idToURL;
 
-	modifier onlyOwnerNFT(uint _idNFT) {
-		require(msg.sender == ownerOf(_idNFT), "You aren't the owner of this NFT");
+	modifier onlyOwnerNFT(uint _idNFT, address _msgSender) {
+		require(_msgSender == ownerOf(_idNFT), "You aren't the owner of this NFT");
 		_;
 	}
 
@@ -43,8 +43,9 @@ contract NFTSample is ERC721, Ownable, MSample, ERC721URIStorage {
 
 	function linkVideo(
 		uint _idNFT,
-		string memory _url
-	) external onlyEmptyValue(idToURL[_idNFT]) /*onlyOwnerNFT(_idNFT)*/ {
+		string memory _url,
+		address _msgSender
+	) external onlyEmptyValue(idToURL[_idNFT]) onlyOwnerNFT(_idNFT, _msgSender) {
 		idToURL[_idNFT] = _url;
 	}
 
