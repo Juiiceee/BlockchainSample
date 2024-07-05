@@ -39,6 +39,6 @@ contract NFTFactorySample {
 	}
 
 	function getBalance(NFTSample _NFTSample) external view returns (uint) {
-		return(address(_NFTSample).balance);
+		return (address(_NFTSample).balance);
 	}
 }
