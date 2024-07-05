@@ -4,10 +4,6 @@ pragma solidity ^0.8.20;
 
 import "./NFTSample.sol";
 
-/*interface INFTFactorySample {
-		function mintPayable() external payable onlySameAmount(price);
-}*/
-
 contract NFTFactorySample {
 	NFTSample[] public NFTContract;
 
@@ -40,5 +36,9 @@ contract NFTFactorySample {
 
 	function getOwner(NFTSample _NFTSample, uint _idNFT) external view returns (address) {
 		return (_NFTSample.getOwner(_idNFT));
+	}
+
+	function getBalance(NFTSample _NFTSample) external view returns (uint) {
+		return(address(_NFTSample).balance);
 	}
 }
